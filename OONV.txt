@@ -1,0 +1,8 @@
+OONV
+Projekt Pizzerie
+
+návrhové vzory:
+BUILDER - jednotlivé pizzy jsou vytvořeny tak, že nemají složitý konstruktor
+STRATEGIE - placení podle jedné zadané metody
+OBSERVER - notifikace uživatele když se změní stav objednávky (od platby dal)
+STATE - reprezentace stavu objednávky (například: introduction, objednavani, platba, v příprave, objednavka připravena)
