@@ -39,9 +39,7 @@ namespace OONV.classes
 
         public void PrepareOrder(Order context, Pizzeria pizzeria)
         {
-            context.Notify("Your order is now being prepared");
-            pizzeria.Manager.PrepareOrder(context);
-            context.CurrentState = new OrderPreparedState();
+            Console.WriteLine("Cannot prepare the order. It's not paid.");
         }
 
         public void OrderReady(Order context)
