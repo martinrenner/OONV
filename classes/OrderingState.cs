@@ -20,7 +20,7 @@ namespace OONV.classes
 
             while (true)
             {
-                string pizza = GetValidPizzaInput(pizzeria);
+                string? pizza = GetValidPizzaInput(pizzeria);
                 if (string.IsNullOrWhiteSpace(pizza))
                     break;
                 MenuItem item = pizzeria.Menu.GetMenuItemByName(pizza);
@@ -53,27 +53,22 @@ namespace OONV.classes
             throw new Exception("Cannot finish preparation. Order is not in preparation state.");
         }
 
-        private string GetValidPizzaInput(Pizzeria pizzeria)
+        private string? GetValidPizzaInput(Pizzeria pizzeria)
         {
-            string pizza;
+            string? pizza;
             do
             {
                 Console.Write("Enter the name of the pizza (or press Enter to finish): ");
                 pizza = Console.ReadLine()?.Trim();
                 if (string.IsNullOrWhiteSpace(pizza))
-                {
                     break;
-                }
 
                 if (pizzeria.Menu.GetMenuItemByName(pizza) == null)
-                {
                     Console.WriteLine("Pizza is not on our menu!");
-                }
                 else
-                {
                     Console.WriteLine("Pizza added to order!");
-                    break;
-                }
+                    
+                break;
             } while (true);
 
             return pizza;

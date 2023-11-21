@@ -22,6 +22,7 @@ namespace OONV.classes
             Food = new List<string>();
             Observers = new List<IOrderObserver>();
             CurrentState = new OrderIntroductionState();
+            PaymentMethod = new CashMethod();
         }
 
         public void AddItemToOrder(MenuItem item)
@@ -74,6 +75,11 @@ namespace OONV.classes
         public void OrderReady()
         {
             CurrentState.OrderReady(this);
+        }
+
+        public void SetPaymentStrategy(IPaymentStrategy strategy) 
+        {
+            PaymentMethod = strategy;
         }
     }
 }

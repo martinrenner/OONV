@@ -28,7 +28,7 @@ namespace OONV.classes
             foreach (var item in order.Food)
             {
                 index += 1;
-                Console.WriteLine($"Preparing pizza No. {index} - { item }");
+                order.Notify($"Preparing pizza No. {index} - { item }");
                 if (item == "Margarita")
                 {
                     Chef.Margarita();

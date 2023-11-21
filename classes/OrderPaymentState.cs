@@ -27,12 +27,9 @@ namespace OONV.classes
             do
             {
                 string method = GetValidPaymentMethodInput();
-
-                IPaymentStrategy strategy = method.ToLower() == "card" ? new CardMethod() : new CashMethod();
-                paymentSuccessful = strategy.ProcessPayment(context.Price);
-
+                context.SetPaymentStrategy(method.ToLower() == "card" ? new CardMethod() : new CashMethod());
+                paymentSuccessful = context.PaymentMethod.ProcessPayment(context.Price);
             } while (!paymentSuccessful);
-
             context.Notify("Your order has been accepted");
             context.CurrentState = new OrderPreparationState();
         }
@@ -49,20 +46,16 @@ namespace OONV.classes
 
         private string GetValidPaymentMethodInput()
         {
-            string method;
+            string? method;
             do
             {
                 Console.Write("Cash or Card? ");
                 method = Console.ReadLine()?.Trim().ToLower();
 
                 if (method != "cash" && method != "card")
-                {
                     Console.WriteLine("Invalid payment method. Please enter 'cash' or 'card'.");
-                }
                 else
-                {
                     break;
-                }
             } while (true);
 
             return method;
