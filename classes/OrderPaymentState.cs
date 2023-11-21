@@ -11,12 +11,12 @@ namespace OONV.classes
     {
         public void PizzeriaIntro(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot start new order when old is unfinished.");
+            throw new Exception("Cannot start new order when old is unfinished.");
         }
 
         public void OrderDetails(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot accept the order. It's already in preparation.");
+            throw new Exception("Cannot accept the order. It's already in preparation.");
         }
 
         public void OrderPaymentDetails(Order context, Pizzeria pizzeria)
@@ -39,12 +39,12 @@ namespace OONV.classes
 
         public void PrepareOrder(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot prepare the order. It's not paid.");
+            throw new Exception("Cannot prepare the order. It's not paid.");
         }
 
         public void OrderReady(Order context)
         {
-            Console.WriteLine("Order preparation finished.");
+            throw new Exception("Order preparation finished.");
         }
 
         private string GetValidPaymentMethodInput()

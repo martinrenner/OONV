@@ -11,7 +11,7 @@ namespace OONV.classes
     {
         public void PizzeriaIntro(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot start new order when old is unfinished.");
+            throw new Exception("Cannot start new order when old is unfinished.");
         }
 
         public void OrderDetails(Order context, Pizzeria pizzeria)
@@ -40,17 +40,17 @@ namespace OONV.classes
 
         public void OrderPaymentDetails(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot pay order. Order has not been accepted yet.");
+            throw new Exception("Cannot pay order. Order has not been accepted yet.");
         }
 
         public void PrepareOrder(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot start preparation. Order has not been accepted yet.");
+            throw new Exception("Cannot start preparation. Order has not been accepted yet.");
         }
 
         public void OrderReady(Order context)
         {
-            Console.WriteLine("Cannot finish preparation. Order is not in preparation state.");
+            throw new Exception("Cannot finish preparation. Order is not in preparation state.");
         }
 
         private string GetValidPizzaInput(Pizzeria pizzeria)
@@ -71,6 +71,7 @@ namespace OONV.classes
                 }
                 else
                 {
+                    Console.WriteLine("Pizza added to order!");
                     break;
                 }
             } while (true);

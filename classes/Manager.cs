@@ -23,9 +23,12 @@ namespace OONV.classes
 
         public List<Pizza> PrepareOrder(Order order) 
         {
+            int index = 0;
             List<Pizza> foodPrepared = new List<Pizza>();
             foreach (var item in order.Food)
             {
+                index += 1;
+                Console.WriteLine($"Preparing pizza No. {index} - { item }");
                 if (item == "Margarita")
                 {
                     Chef.Margarita();

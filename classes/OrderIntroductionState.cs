@@ -21,22 +21,22 @@ namespace OONV.classes
 
         public void OrderDetails(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot accept order. Order has not started yet.");
+            throw new Exception("Cannot accept order. Order has not started yet.");
         }
 
         public void OrderPaymentDetails(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot pay order. Order has not started yet.");
+            throw new Exception("Cannot pay order. Order has not started yet.");
         }
 
         public void PrepareOrder(Order context, Pizzeria pizzeria)
         {
-            Console.WriteLine("Cannot start preparation. Order has not been accepted yet.");
+            throw new Exception("Cannot start preparation. Order has not been accepted yet.");
         }
 
         public void OrderReady(Order context)
         {
-            Console.WriteLine("Cannot finish preparation. Order has not been accepted yet.");
+            throw new Exception("Cannot finish preparation. Order has not been accepted yet.");
         }
     }
 }

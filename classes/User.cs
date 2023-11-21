@@ -15,7 +15,7 @@ namespace OONV.classes
 
         public void Update(string message)
         {
-            Console.WriteLine("Customer message - " + message);
+            Console.WriteLine("Observable update - " + message);
         }
     }
 }
