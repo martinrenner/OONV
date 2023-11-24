@@ -9,40 +9,42 @@ namespace OONV.classes
 {
     class ItalianChef : IChefBuilder
     {
-        public Pizza? Pizza { get; private set; }
-        public void Diavola()
-        {
-            Pizza = new Pizza("Diavola");
-            Pizza.MakeDough();
-            Pizza.MakeBase("Tomato");
-            Pizza.AddIngredient("Cheese");
-            Pizza.AddIngredient("Peperony");
-            Pizza.Bake(10);
+        public Pizza Pizza { get; private set; }
+        
+        public ItalianChef() {
+            Pizza = new Pizza();
         }
 
-        public void Hawai()
+        public void SetMealName(string name)
         {
-            Pizza = new Pizza("Hawai");
-            Pizza.MakeDough();
-            Pizza.MakeBase("Tomato");
-            Pizza.AddIngredient("Cheese");
-            Pizza.AddIngredient("Ham");
-            Pizza.AddIngredient("Pineapple");
-            Pizza.Bake(10);
+            Pizza.SetPizzaName(name);
         }
 
-        public void Margarita()
+        public void MakeDough()
         {
-            Pizza = new Pizza("Margarita");
             Pizza.MakeDough();
-            Pizza.MakeBase("Tomato");
-            Pizza.AddIngredient("Cheese");
-            Pizza.Bake(10);
+        }
+
+        public void MakeBase(string pizza_base)
+        {
+            Pizza.MakeBase(pizza_base);
+        }
+
+        public void AddIngredient(string ingredient)
+        {
+            Pizza.AddIngredient(ingredient);
+        }
+
+        public void Bake(int time_in_seconds)
+        {
+            Pizza.Bake(time_in_seconds);
         }
 
         public Pizza GetPizza()
         {
-            return Pizza ?? throw new InvalidOperationException("Pizza not created yet.");
+            Pizza hotova = Pizza;
+            Pizza = new Pizza();
+            return hotova;
         }
     }
 }

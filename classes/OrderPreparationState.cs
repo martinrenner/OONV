@@ -9,29 +9,40 @@ namespace OONV.classes
 {
     class OrderPreparationState : IOrderState
     {
-        public void PizzeriaIntro(Order context, Pizzeria pizzeria)
+        private Order Context { get; set; }
+
+        public OrderPreparationState(Order context) {
+            Context = context;
+        }
+
+        public void SetContext(Order context)
+        {
+            Context = context;
+        }
+
+        public void PizzeriaIntro(Pizzeria pizzeria)
         {
             throw new Exception("Cannot start new order when old is unfinished.");
         }
 
-        public void OrderDetails(Order context, Pizzeria pizzeria)
+        public void OrderDetails(Pizzeria pizzeria)
         {
             throw new Exception("Cannot accept the order. It's already in preparation.");
         }
 
-        public void OrderPaymentDetails(Order context, Pizzeria pizzeria)
+        public void OrderPaymentDetails(Pizzeria pizzeria)
         {
             throw new Exception("Cannot pay order again. It's already in preparation.");
         }
 
-        public void PrepareOrder(Order context, Pizzeria pizzeria)
+        public void PrepareOrder(Pizzeria pizzeria)
         {
-            context.Notify("Your order is now being prepared");
-            pizzeria.Manager.PrepareOrder(context);
-            context.CurrentState = new OrderPreparedState();
+            Context.Notify("Your order is now being prepared");
+            pizzeria.Manager.PrepareOrder(Context);
+            Context.SetState(new OrderPreparedState(Context));
         }
 
-        public void OrderReady(Order context)
+        public void OrderReady()
         {
             throw new Exception("Order preparation finished.");
         }

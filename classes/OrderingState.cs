@@ -9,12 +9,23 @@ namespace OONV.classes
 {
     class OrderingState : IOrderState
     {
-        public void PizzeriaIntro(Order context, Pizzeria pizzeria)
+        private Order Context { get; set; }
+
+        public OrderingState(Order context) {
+            Context = context;
+        }
+
+        public void SetContext(Order context)
+        {
+            Context = context;
+        }
+
+        public void PizzeriaIntro(Pizzeria pizzeria)
         {
             throw new Exception("Cannot start new order when old is unfinished.");
         }
 
-        public void OrderDetails(Order context, Pizzeria pizzeria)
+        public void OrderDetails(Pizzeria pizzeria)
         {
             Console.WriteLine("- Choose Your Pizza ------------------------------------------");
 
@@ -23,7 +34,7 @@ namespace OONV.classes
                 string? pizza = GetValidPizzaInput(pizzeria);
                 if (string.IsNullOrWhiteSpace(pizza))
                 {
-                    if (context.Price == 0)
+                    if (Context.Price == 0)
                     {
                         Console.WriteLine("No pizza selected. Please choose valid pizza.");
                         continue;
@@ -32,25 +43,25 @@ namespace OONV.classes
                         break;
                 }
                 MenuItem item = pizzeria.Menu.GetMenuItemByName(pizza);
-                context.AddItemToOrder(item);
+                Context.AddItemToOrder(item);
             }
 
             Console.WriteLine("- Total Price ------------------------------------------------");
-            Console.WriteLine($"Total price is {context.Price:C}");
-            context.CurrentState = new OrderPaymentState();
+            Console.WriteLine($"Total price is {Context.Price:C}");
+            Context.SetState(new OrderPaymentState(Context));
         }
 
-        public void OrderPaymentDetails(Order context, Pizzeria pizzeria)
+        public void OrderPaymentDetails(Pizzeria pizzeria)
         {
             throw new Exception("Cannot pay order. Order has not been accepted yet.");
         }
 
-        public void PrepareOrder(Order context, Pizzeria pizzeria)
+        public void PrepareOrder(Pizzeria pizzeria)
         {
             throw new Exception("Cannot start preparation. Order has not been accepted yet.");
         }
 
-        public void OrderReady(Order context)
+        public void OrderReady()
         {
             throw new Exception("Cannot finish preparation. Order is not in preparation state.");
         }

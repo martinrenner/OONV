@@ -9,16 +9,20 @@ namespace OONV.classes
 {
     class Pizza
     {
-        public string Name { get; private set; }
+        public string? Name { get; private set; }
         public string? PizzaDough { get; private set; }
         public string? PizzaBase { get; private set; }
         public bool IsBaked { get; private set; }
         public List<string> PizzaIngredients { get; private set; }
 
-        public Pizza(string name)
+        public Pizza()
+        {
+            PizzaIngredients = new List<string>();
+        }
+
+        public void SetPizzaName(string name)
         {
             Name = name;
-            PizzaIngredients = new List<string>();
         }
 
         public void MakeDough()

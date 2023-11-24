@@ -9,9 +9,11 @@ namespace OONV.interfaces
 {
     interface IChefBuilder
     {
-        public void Margarita();
-        public void Diavola();
-        public void Hawai();
+        public void SetMealName(string name);
+        public void MakeDough();
+        public void MakeBase(string pizza_base);
+        public void AddIngredient(string ingredient);
+        public void Bake(int time_in_seconds);
         public Pizza GetPizza();
     }
 }

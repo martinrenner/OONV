@@ -11,17 +11,17 @@ namespace OONV.classes
     class Order : IOrderObservable
     {
         public double Price { get; private set; }
-        public IPaymentStrategy PaymentMethod { get; private set; }
+        private IPaymentStrategy PaymentMethod { get; set; }
         public List<string> Food { get; private set; }
         public List<IOrderObserver> Observers { get; private set; }
-        public IOrderState CurrentState { get; set; }
+        private IOrderState CurrentState { get; set; }
 
         public Order()
         {
             Price = 0;
             Food = new List<string>();
             Observers = new List<IOrderObserver>();
-            CurrentState = new OrderIntroductionState();
+            CurrentState = new OrderIntroductionState(this);
             PaymentMethod = new CashMethod();
         }
 
@@ -52,34 +52,43 @@ namespace OONV.classes
         }
 
         //-StateLogic---------------------------------------------
+        public void SetState(IOrderState new_state)
+        {
+            CurrentState = new_state;
+        }
         public void PizzeriaIntro(Pizzeria pizzeria)
         {
-            CurrentState.PizzeriaIntro(this, pizzeria);
+            CurrentState.PizzeriaIntro(pizzeria);
         }
 
         public void OrderDetails(Pizzeria pizzeria) 
         {
-            CurrentState.OrderDetails(this, pizzeria);
+            CurrentState.OrderDetails(pizzeria);
         }
 
         public void OrderPaymentDetails(Pizzeria pizzeria)
         {
-            CurrentState.OrderPaymentDetails(this, pizzeria);
+            CurrentState.OrderPaymentDetails(pizzeria);
         }
 
         public void PrepareOrder(Pizzeria pizzeria)
         {
-            CurrentState.PrepareOrder(this, pizzeria);
+            CurrentState.PrepareOrder(pizzeria);
         }
 
         public void OrderReady()
         {
-            CurrentState.OrderReady(this);
+            CurrentState.OrderReady();
         }
-
+        //-StrategyLogic---------------------------------------------
         public void SetPaymentStrategy(IPaymentStrategy strategy) 
         {
             PaymentMethod = strategy;
+        }
+
+        public bool DoPaymentStrategy(double price) 
+        {
+            return PaymentMethod.ProcessPayment(price);
         }
     }
 }

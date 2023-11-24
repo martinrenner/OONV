@@ -9,10 +9,11 @@ namespace OONV.interfaces
 {
     interface IOrderState
     {
-        void PizzeriaIntro(Order context, Pizzeria pizzeria);
-        void OrderDetails(Order context, Pizzeria pizzeria);
-        void OrderPaymentDetails(Order context, Pizzeria pizzeria);
-        void PrepareOrder(Order context, Pizzeria pizzeria);
-        void OrderReady(Order context);
+        void SetContext(Order context);
+        void PizzeriaIntro(Pizzeria pizzeria);
+        void OrderDetails(Pizzeria pizzeria);
+        void OrderPaymentDetails(Pizzeria pizzeria);
+        void PrepareOrder(Pizzeria pizzeria);
+        void OrderReady();
     }
 }

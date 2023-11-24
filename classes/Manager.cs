@@ -31,21 +31,51 @@ namespace OONV.classes
                 order.Notify($"Preparing pizza No. {index} - { item }");
                 if (item == "Margarita")
                 {
-                    Chef.Margarita();
-                    foodPrepared.Add(Chef.GetPizza());
+                    foodPrepared.Add(this.Margarita());
                 }
                 else if (item == "Diavola")
                 {
-                    Chef.Diavola();
-                    foodPrepared.Add(Chef.GetPizza());
+                    foodPrepared.Add(this.Diavola());
                 }
                 else if (item == "Hawai") 
                 {
-                    Chef.Hawai();
-                    foodPrepared.Add(Chef.GetPizza());
+                    foodPrepared.Add(this.Hawai());
                 }
             }
             return foodPrepared;
+        }
+
+        private Pizza Diavola()
+        {
+            Chef.SetMealName("Diavola");
+            Chef.MakeDough();
+            Chef.MakeBase("Tomato");
+            Chef.AddIngredient("Cheese");
+            Chef.AddIngredient("Peperony");
+            Chef.Bake(10);
+            return Chef.GetPizza();
+        }
+
+        private Pizza Hawai()
+        {
+            Chef.SetMealName("Hawai");
+            Chef.MakeDough();
+            Chef.MakeBase("Tomato");
+            Chef.AddIngredient("Cheese");
+            Chef.AddIngredient("Ham");
+            Chef.AddIngredient("Pineapple");
+            Chef.Bake(10);
+            return Chef.GetPizza();
+        }
+
+        private Pizza Margarita()
+        {
+            Chef.SetMealName("Margarita");
+            Chef.MakeDough();
+            Chef.MakeBase("Tomato");
+            Chef.AddIngredient("Cheese");
+            Chef.Bake(10);
+            return Chef.GetPizza();
         }
     }
 }

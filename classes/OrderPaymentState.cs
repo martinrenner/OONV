@@ -9,17 +9,28 @@ namespace OONV.classes
 {
     class OrderPaymentState : IOrderState
     {
-        public void PizzeriaIntro(Order context, Pizzeria pizzeria)
+        private Order Context { get; set; }
+
+        public OrderPaymentState(Order context) {
+            Context = context;
+        }
+
+        public void SetContext(Order context)
+        {
+            Context = context;
+        }
+
+        public void PizzeriaIntro(Pizzeria pizzeria)
         {
             throw new Exception("Cannot start new order when old is unfinished.");
         }
 
-        public void OrderDetails(Order context, Pizzeria pizzeria)
+        public void OrderDetails(Pizzeria pizzeria)
         {
             throw new Exception("Cannot accept the order. It's already in preparation.");
         }
 
-        public void OrderPaymentDetails(Order context, Pizzeria pizzeria)
+        public void OrderPaymentDetails(Pizzeria pizzeria)
         {
             Console.WriteLine("- Payment Details --------------------------------------------");
 
@@ -27,19 +38,19 @@ namespace OONV.classes
             do
             {
                 string method = GetValidPaymentMethodInput();
-                context.SetPaymentStrategy(method.ToLower() == "card" ? new CardMethod() : new CashMethod());
-                paymentSuccessful = context.PaymentMethod.ProcessPayment(context.Price);
+                Context.SetPaymentStrategy(method.ToLower() == "card" ? new CardMethod() : new CashMethod());
+                paymentSuccessful = Context.DoPaymentStrategy(Context.Price);
             } while (!paymentSuccessful);
-            context.Notify("Your order has been accepted");
-            context.CurrentState = new OrderPreparationState();
+            Context.Notify("Your order has been accepted");
+            Context.SetState(new OrderPreparationState(Context));
         }
 
-        public void PrepareOrder(Order context, Pizzeria pizzeria)
+        public void PrepareOrder(Pizzeria pizzeria)
         {
             throw new Exception("Cannot prepare the order. It's not paid.");
         }
 
-        public void OrderReady(Order context)
+        public void OrderReady()
         {
             throw new Exception("Order preparation finished.");
         }
